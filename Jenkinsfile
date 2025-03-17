@@ -36,12 +36,13 @@ pipeline {
                     def imageList = readFile(file: 'images-list.txt').trim().split('\n')
 
                     // Loop through each image and pull it
-                    imageList.each { image ->
-                        if (image.trim()) {  // Skip empty lines
-                            echo "Packing image: ${image}"
-                            sh "docker image save -o pack.tar ${image.trim()}"
-                        }
-                    }
+                    def cleanedImageList = imageList.findAll { it.trim() }.collect { it.trim() }
+
+                    // Join image names with spaces for docker save command
+                    def imageListString = cleanedImageList.join(' ')
+
+                    echo "Packing images: ${imageListString}"
+                    sh "docker save -o all_images.tar ${imageListString}"
                 }
             }
         }
