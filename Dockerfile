@@ -15,6 +15,6 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
 # Install Docker daemon and CLI
 RUN apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io
 
-COPY ./pack.tar /images/pack.tar
+COPY ./all_images.tar /images/all_images.tar
 
-CMD [ "sh","-c","dockerd & sleep 5 && docker load < /images/pack.tar && tail -f /dev/null" ]
+CMD [ "sh","-c","dockerd & sleep 5 && docker load < /images/all_images.tar && tail -f /dev/null" ]
