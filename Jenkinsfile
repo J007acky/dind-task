@@ -15,8 +15,6 @@ pipeline {
         stage('Pull requried Image') {
             steps {
                 script {
-                    sh 'docker pull j007acky/pvt-registry:v1.0'
-
                     // Read the list.txt file line by line
                     def imageList = readFile(file: 'images-list.txt').trim().split('\n')
 
@@ -33,6 +31,18 @@ pipeline {
         stage('Pack the images to Tar') {
             steps {
                 sh 'docker image save -o pack.tar j007acky/pvt-registry:v1.0'
+                script {
+                    // Read the list.txt file line by line
+                    def imageList = readFile(file: 'images-list.txt').trim().split('\n')
+
+                    // Loop through each image and pull it
+                    imageList.each { image ->
+                        if (image.trim()) {  // Skip empty lines
+                            echo "Packing image: ${image}"
+                            sh "docker image save -o pack.tar ${image}"
+                        }
+                    }
+                }
             }
         }
         stage('Building custom Image') {
