@@ -27,7 +27,6 @@ pipeline {
                         }
                     }
             }
-        }
     }
         stage('Pack the images to Tar') {
             steps {
