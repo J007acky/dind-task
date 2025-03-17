@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Pull requried Image') {
             steps {
-                sh 'docker pull j007acky/pvt-registry:v1.0'
+                script {
+                    sh 'docker pull j007acky/pvt-registry:v1.0'
 
                     // Read the list.txt file line by line
                     def imageList = readFile(file: 'images-list.txt').trim().split('\n')
@@ -26,8 +27,9 @@ pipeline {
                             sh "docker pull ${image}"
                         }
                     }
+                }
             }
-    }
+        }
         stage('Pack the images to Tar') {
             steps {
                 sh 'docker image save -o pack.tar j007acky/pvt-registry:v1.0'
@@ -38,7 +40,7 @@ pipeline {
                 sh 'docker build -t custom-jenkins-image:rahul .'
             }
         }
-}
+    }
     post {
         always {
             sh 'docker logout'
