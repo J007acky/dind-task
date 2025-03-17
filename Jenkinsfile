@@ -22,7 +22,7 @@ pipeline {
                     imageList.each { image ->
                         if (image.trim()) {  // Skip empty lines
                             echo "Pulling image: ${image}"
-                            // sh "docker pull ${image}"
+                            sh "docker pull ${image}"
                         }
                     }
                 }
