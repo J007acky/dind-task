@@ -22,7 +22,7 @@ pipeline {
                     imageList.each { image ->
                         if (image.trim()) {  // Skip empty lines
                             echo "Pulling image: ${image}"
-                            sh "docker pull ${image}"
+                            sh "docker pull ${image.trim()}"
                         }
                     }
                 }
@@ -39,7 +39,7 @@ pipeline {
                     imageList.each { image ->
                         if (image.trim()) {  // Skip empty lines
                             echo "Packing image: ${image}"
-                            sh "docker image save -o pack.tar ${image}"
+                            sh "docker image save -o pack.tar ${image.trim()}"
                         }
                     }
                 }
