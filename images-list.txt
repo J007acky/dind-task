@@ -1,3 +1,5 @@
 hello-world:latest
 alpine:latest
 j007acky/pvt-registry:v1.0
+j007acky/pvt-registry:webapp
+j007acky/pvt-registry:myapp
